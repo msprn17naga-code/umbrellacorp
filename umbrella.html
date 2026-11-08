@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Umbrella Corporation</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #121316;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            background-color: #0b0c0e;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            border-bottom: 2px solid #8b0000;
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-box img {
+            width: 45px;
+            height: 45px;
+        }
+
+        .logo-box h1 {
+            font-size: 22px;
+            letter-spacing: 3px;
+            font-weight: 800;
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #aaaaaa;
+            text-decoration: none;
+            font-size: 16px;
+            text-transform: lowercase;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        nav a:hover, nav a.active {
+            color: #ffffff;
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(255,255,255,0.5);
+        }
+
+        .slogan-header {
+            color: #c91818;
+            font-size: 10px;
+            max-width: 280px;
+            text-align: right;
+            font-weight: bold;
+            line-height: 1.2;
+            text-transform: uppercase;
+        }
+        main {
+            flex: 1;
+            padding: 40px;
+            max-width: 1300px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .section-page {
+            display: none;
+        }
+
+        .section-page.active {
+            display: block;
+        }
+        .hero-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            background: radial-gradient(circle, #252830 0%, #121316 100%);
+            padding: 40px;
+            border-radius: 8px;
+            border: 1px solid #2a2d34;
+        }
+
+        .mission-box h2 {
+            color: #c91818;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .mission-box p {
+            color: #cccccc;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .video-wrapper {
+            background: #000;
+            border: 2px solid #333;
+            border-radius: 6px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        video {
+            width: 100%;
+            max-height: 320px;
+            border-radius: 4px;
+            background-color: #000;
+        }
+
+        .file-input-btn {
+            margin-top: 10px;
+            background: #c91818;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background-color: #1a1c23;
+            border: 1px solid #2d313b;
+            border-radius: 6px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: contain;
+            margin-bottom: 15px;
+            background: #101114;
+            border-radius: 4px;
+            padding: 10px;
+        }
+
+        .card h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+
+        .card p {
+            font-size: 13px;
+            color: #999999;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .card .price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffffff;
+            text-align: right;
+            border-top: 1px solid #2d313b;
+            padding-top: 10px;
+        }
+
+        /* VISTA: CONTACTO / PROYECTOS */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .profile-card {
+            background-color: #1a1c23;
+            border: 1px solid #2d313b;
+            border-radius: 6px;
+            padding: 25px;
+        }
+
+        .profile-card h3 {
+            color: #c91818;
+            margin-bottom: 10px;
+            font-size: 20px;
+            text-transform: uppercase;
+        }
+
+        .profile-card ul {
+            list-style: none;
+            margin: 15px 0;
+        }
+
+        .profile-card ul li {
+            font-size: 14px;
+            color: #bbbbbb;
+            margin-bottom: 6px;
+        }
+
+        .phone-highlight {
+            font-size: 18px;
+            color: #ffffff;
+            font-weight: bold;
+            margin-top: 15px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo-box">
+        <img src="sombrilla.jpeg" style="width: 161px; height:133px; object-fit: contain;">
+           <h1>UMBRELLA</h1>
+        </div>
+
+        <nav>
+            <a onclick="showSection('inicio')" id="nav-inicio" class="active">inicio</a>
+            <a onclick="showSection('catalogo')" id="nav-catalogo">catalogo</a>
+            <a onclick="showSection('contacto')" id="nav-contacto">contacto</a>
+        </nav>
+
+        <div class="slogan-header">
+            La obediencia trae disciplina.<br>
+            La disciplina trae unidad.<br>
+            La unidad trae poder.<br>
+            Y el poder trae la vida.
+        </div>
+    </header>
+
+    <main>
+        <!-- SECCIÓN 1: INICIO -->
+        <section id="inicio" class="section-page active">
+            <div class="hero-container">
+                <div class="mission-box">
+                    <h2>Nuestra Misión</h2>
+                    <p>En Umbrella Corporation preservamos la vida humana mediante la investigación biotecnológica y farmacéutica de vanguardia. Nuestro compromiso con el progreso científico nos consolida como líderes globales en salud, desarrollo genético e innovación médica continua.</p>
+                </div>
+                <div class="video-wrapper">
+                    <video id="promoVideo" controls src="video.mp4">
+                        Tu navegador no soporta el reproductor de video.
+                    </video>
+                    <br>
+                    <input type="file" id="videoLoader" accept="video/mp4,video/*" style="display:none;" onchange="loadLocalVideo(event)">
+                    <button class="file-input-btn" onclick="document.getElementById('videoLoader').click()">Cargar Video Promocional (.mp4)</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: CATÁLOGO -->
+        <section id="catalogo" class="section-page">
+            <div class="catalog-grid">
+                <div class="card">
+                    <img src= "virus%20t.png" alt="Virus T">
+                    <h3>Virus T</h3>
+                    <p>Agente mutageno de investigación avanzada para desarrollo celular y regeneración de tejidos.</p>
+                    <div class="price">$350,000.00</div>
+                </div>
+
+                <div class="card">
+                    <img src= "componente%20v.png" alt="Compound T-V09">
+                    <h3>Compound T-V09 / "Daylight-T"</h3>
+                    <p>Fórmula estabilizadora para neutralizar agentes biológicos de alta densidad.</p>
+                    <div class="price">$500,000.00</div>
+                </div>
+
+                <div class="card">
+                    <img src= "paracetamol.png" alt="Paracetamol">
+                    <h3>Paracetamol Umbrella</h3>
+                    <p>Analgésico y antipirético de grado corporativo de rápida acción sintética.</p>
+                    <div class="price">$85.00</div>
+                </div>
+
+                <div class="card">
+                    <img src= "ibuprofeno.png" alt="Ibuprofeno">
+                    <h3>Ibuprofeno</h3>
+                    <p>Antiinflamatorio no esteroideo eficaz para la reducción de dolor articular extremo.</p>
+                    <div class="price">$70.00</div>
+                </div>
+
+                <div class="card">
+                    <img src= "cyanocallis antitoxica.png" alt="Cyanocallin">
+                    <h3>Cyanocallin Antitóxica</h3>
+                    <p>Efectiva contra malestares estomacales graves e infecciones digestivas agudas.</p>
+                    <div class="price">$200.00 / unidad</div>
+                </div>
+
+                <div class="card">
+                    <img src= "arklaya medicinalis.png" alt="Hierba Medicinal">
+                    <h3>Arklaya Medicinalis</h3>
+                    <p>Extractos botánicos curativos de alta concentración para primeros auxilios en campo.</p>
+                    <div class="price">$200.00 / unidad</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: CONTACTO -->
+        <section id="contacto" class="section-page">
+            <div class="contact-grid">
+                <div class="profile-card">
+                    <h3>Proyecto NEMESIS y proyecto mr.x</h3>
+                <img src="proyecto.jpeg" alt="proyecto" style="width: 550px">
+                </div>
+
+                
+
+                <div class="profile-card">
+                    <h3>Contacto Directivo</h3>
+                    <img src="contacto.jpeg" alt="contacto" style="width: 550px">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Cambio entre pestañas
+        function showSection(sectionId) {
+            document.querySelectorAll('.section-page').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+            
+            document.getElementById(sectionId).classList.add('active');
+            document.getElementById('nav-' + sectionId).classList.add('active');
+        }
+
+        // Cargar video local desde la computadora
+        function loadLocalVideo(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const videoNode = document.getElementById('promoVideo');
+                const fileURL = URL.createObjectURL(file);
+                videoNode.src = fileURL;
+                videoNode.play();
+            }
+        }
+    </script>
+</body>
+</html>
